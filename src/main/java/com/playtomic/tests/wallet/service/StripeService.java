@@ -15,7 +15,7 @@ import java.net.URI;
 
 /**
  * Handles the communication with Stripe.
- *
+ * <p>
  * A real implementation would call to String using their API/SDK.
  * This dummy implementation throws an error when trying to charge less than 10€.
  */
@@ -38,18 +38,17 @@ public class StripeService {
         this.refundsUri = refundsUri;
         this.restTemplate =
                 restTemplateBuilder
-                .errorHandler(new StripeRestTemplateResponseErrorHandler())
-                .build();
+                        .errorHandler(new StripeRestTemplateResponseErrorHandler())
+                        .build();
     }
 
     /**
      * Charges money in the credit card.
-     *
+     * <p>
      * Ignore the fact that no CVC or expiration date are provided.
      *
      * @param creditCardNumber The number of the credit card
-     * @param amount The amount that will be charged.
-     *
+     * @param amount           The amount that will be charged.
      * @throws StripeServiceException
      */
     public void charge(@NonNull String creditCardNumber, @NonNull BigDecimal amount) throws StripeServiceException {
