@@ -17,6 +17,12 @@ Java 11 ,Spring Boot, Rest , Lombok , MapStruct , Junit5
 This service work in a microservices environment in high availability. I care about concurrency.
 I write Unit test and also Integration Test.
 
+    /*
+    For Proof of concept - DB lock is preferable
+    Real life scenario too much db lock result in bottleneck so
+    REDIS Distributed Locking Tools can be used.
+     */
+     
 ## Owner contact
 Email : [asli.bhr.apaydin@gmail.com](mailto:asli.bhr.apaydin@gmail.com)
 LinkedIn: [aslibaharcay](https://www.linkedin.com/in/asl%C4%B1-bahar-%C3%A7ay-7b0b7779/)
