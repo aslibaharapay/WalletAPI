@@ -24,8 +24,9 @@ import java.net.URI;
 
     @Test
     void test_exception() {
+        BigDecimal price = new BigDecimal(5);
         Assertions.assertThrows(StripeAmountTooSmallException.class,
-                () -> s.charge("4242 4242 4242 4242", new BigDecimal(5)));
+                () -> s.charge("4242 4242 4242 4242", price));
     }
 
     @Test
