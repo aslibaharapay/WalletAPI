@@ -15,6 +15,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/wallet")
 public class WalletRestController {
+    /*
+    For Proof of concept - DB lock is preferable
+    Real life scenario too much db lock result in bottleneck so
+    REDIS Distributed Locking Tools can be used.
+     */
+
     private final WalletService walletService;
 
     private final StripeService stripeService;

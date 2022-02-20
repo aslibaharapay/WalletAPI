@@ -23,6 +23,7 @@ public class WalletService {
     }
 
     public Optional<Wallet> getWalletByID(String ID) {
+
         return walletRepository.findByWalletIdentifier(ID);
     }
 
