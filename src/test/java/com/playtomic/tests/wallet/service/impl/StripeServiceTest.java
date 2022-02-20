@@ -17,20 +17,20 @@ import java.net.URI;
  *
  * How would you test this?
  */
-public class StripeServiceTest {
+ class StripeServiceTest {
 
     URI testUri = URI.create("https://sandbox.playtomic.io/v1/stripe-simulator/charges");
     StripeService s = new StripeService(testUri, testUri, new RestTemplateBuilder());
 
     @Test
-    public void test_exception() {
-        Assertions.assertThrows(StripeAmountTooSmallException.class, () -> {
-            s.charge("4242 4242 4242 4242", new BigDecimal(5));
-        });
+    void test_exception() {
+        Assertions.assertThrows(StripeAmountTooSmallException.class,
+                () -> s.charge("4242 4242 4242 4242", new BigDecimal(5)));
     }
 
     @Test
-    public void test_ok() throws StripeServiceException {
-        s.charge("4242 4242 4242 4242", new BigDecimal(15));
+    void charge_validcreditcard_success() throws StripeServiceException {
+
+        Assertions.assertDoesNotThrow(() -> s.charge("4242 4242 4242 4242", new BigDecimal(15)));
     }
 }

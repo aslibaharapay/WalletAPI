@@ -25,7 +25,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class WalletServiceUnitTest {
+class WalletServiceUnitTest {
 
     private final String WALLET_ID = UUID.randomUUID().toString();
 
@@ -39,7 +39,7 @@ public class WalletServiceUnitTest {
     private WalletService underTest;
 
     @Test
-    public void test_getWalletByWalletID_successfully() {
+    void test_getWalletByWalletID_successfully() {
         String WALLET_KEY_FOUND = "wallet_key_found";
         Mockito.when(walletRepository.findByWalletIdentifier(WALLET_KEY_FOUND))
                 .thenReturn(Optional.of(new Wallet()));
@@ -51,7 +51,7 @@ public class WalletServiceUnitTest {
         Mockito.verify(walletRepository, times(1)).findByWalletIdentifier(WALLET_KEY_FOUND);
     }
     @Test
-    public void test_getWalletByInvalidkey_ReturnEmtpy() {
+    void test_getWalletByInvalidkey_ReturnEmtpy() {
         String WALLET_KEY_NOT_FOUND = "wallet_key_not_found";
         Mockito.when(walletRepository.findByWalletIdentifier(WALLET_KEY_NOT_FOUND))
                 .thenReturn(Optional.empty());
@@ -63,7 +63,7 @@ public class WalletServiceUnitTest {
     }
 
     @Test
-    public void createWallet_ValidDTOGiven_ShouldSuccess() {
+    void createWallet_ValidDTOGiven_ShouldSuccess() {
         Wallet wallet = new Wallet();
         wallet.setWalletIdentifier(WALLET_ID);
 
@@ -76,7 +76,7 @@ public class WalletServiceUnitTest {
     }
 
     @Test
-    public void createWallet_InValidDTOGiven_throwOptimisticLockingFailureException() {
+    void createWallet_InValidDTOGiven_throwOptimisticLockingFailureException() {
         Wallet wallet = new Wallet();
         wallet.setWalletIdentifier(WALLET_ID);
         wallet.setVersion(2L);
@@ -89,7 +89,7 @@ public class WalletServiceUnitTest {
 
 
     @Test
-    public void createWallet_InValidDTOGiven_throwConstException() {
+    void createWallet_InValidDTOGiven_throwConstException() {
         Wallet wallet = new Wallet();
         wallet.setWalletIdentifier(WALLET_ID);
         wallet.setCurrentBalance(new BigDecimal(-20));
@@ -101,7 +101,7 @@ public class WalletServiceUnitTest {
     }
 
     @Test
-    public void topUpWallet_ValidDTOGiven_ShouldSuccess() {
+    void topUpWallet_ValidDTOGiven_ShouldSuccess() {
         Wallet wallet = new Wallet();
         TransactionDTO transaction = new TransactionDTO();
         transaction.setAmount(new BigDecimal(20));

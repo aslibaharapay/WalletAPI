@@ -8,6 +8,6 @@ public class BalanceCheckValidator implements ConstraintValidator<BalanceCheck, 
 
     @Override
     public boolean isValid(BigDecimal value, ConstraintValidatorContext context) {
-        return value.compareTo(BigDecimal.ZERO) != -1;
+        return value.compareTo(BigDecimal.ZERO) >= 0 ;
     }
 }

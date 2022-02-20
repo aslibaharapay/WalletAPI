@@ -5,7 +5,6 @@ import com.playtomic.tests.wallet.entity.Transaction;
 import com.playtomic.tests.wallet.entity.Wallet;
 import com.playtomic.tests.wallet.mapper.TransactionMapper;
 import com.playtomic.tests.wallet.respository.WalletRepository;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,28 +21,19 @@ public class WalletService {
         this.transactionMapper = transactionMapper;
     }
 
-    public Optional<Wallet> getWalletByID(String ID) {
-
-        return walletRepository.findByWalletIdentifier(ID);
+    public Optional<Wallet> getWalletByID(String walletId) {
+        return walletRepository.findByWalletIdentifier(walletId);
     }
 
-    public Wallet saveWallet(Wallet wallet) {
-        try {
-            return walletRepository.save(wallet);
-        } catch (OptimisticLockingFailureException ex) {
-            throw ex;
-        }
+    public void saveWallet(Wallet wallet) {
+        walletRepository.save(wallet);
 
     }
 
     public Wallet saveWallet(Wallet wallet, TransactionDTO transaction) {
-        try {
-            Transaction trEntitiy = transactionMapper.mapper(transaction);
-            wallet.setCurrentBalance(wallet.getCurrentBalance().add(transaction.getAmount()));
-            wallet.getTransactions().add(trEntitiy);
-            return walletRepository.save(wallet);
-        } catch (OptimisticLockingFailureException ex) {
-            throw ex;
-        }
+        Transaction trEntity = transactionMapper.mapper(transaction);
+        wallet.setCurrentBalance(wallet.getCurrentBalance().add(transaction.getAmount()));
+        wallet.getTransactions().add(trEntity);
+        return walletRepository.save(wallet);
     }
 }

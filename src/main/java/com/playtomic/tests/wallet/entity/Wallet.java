@@ -1,11 +1,11 @@
 package com.playtomic.tests.wallet.entity;
 
 import com.playtomic.tests.wallet.validation.BalanceCheck;
-import com.sun.istack.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;

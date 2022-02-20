@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(profiles = "test")
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class WalletApplicationIT {
+class WalletApplicationIT {
 
 	@Autowired
 	WalletService walletService;
@@ -47,7 +47,7 @@ public class WalletApplicationIT {
 	ObjectMapper om;
 
 	@BeforeAll
-	public void setup() throws URISyntaxException {
+	void setup() throws URISyntaxException {
 		om = new ObjectMapper();
 		ReflectionTestUtils.setField(stripeService,
 				"chargesUri",
@@ -60,7 +60,7 @@ public class WalletApplicationIT {
 	}
 	
 	@Test
-	public void test_getWalletByID_Status_OK() throws Exception {
+	void test_getWalletByID_Status_OK() throws Exception {
 
 		Wallet actualRecords = om.readValue(mockMvc.perform(get("/wallet/"+WALLET_ID))
 				.andDo(print())
@@ -77,7 +77,7 @@ public class WalletApplicationIT {
 	}
 
 	@Test
-	public void test_getWalletByInValidID_Status_NOTFOUND() throws Exception {
+	void test_getWalletByInValidID_Status_NOTFOUND() throws Exception {
 
 		mockMvc.perform(get("/wallet/"+"NOT_VALID_ID"))
 				.andDo(print())
@@ -85,7 +85,7 @@ public class WalletApplicationIT {
 	}
 
 	@Test
-	public void test_WalletService_NotAllowedMethod() throws Exception {
+	void test_WalletService_NotAllowedMethod() throws Exception {
 
 		mockMvc.perform(put("/wallet/" + WALLET_ID))
 				.andExpect(status().isMethodNotAllowed());
@@ -98,7 +98,7 @@ public class WalletApplicationIT {
 	}
 
 	@Test
-	public void test_topUpMoneyInWallet_Status_NOTFOUND() throws Exception {
+	void test_topUpMoneyInWallet_Status_Not_Found() throws Exception {
 		Transaction transaction = new Transaction();
 		transaction.setAmount(new BigDecimal(30));
 		transaction.setWalletId("NOT_VALID_ID");
@@ -109,10 +109,11 @@ public class WalletApplicationIT {
 				.content(om.writeValueAsString(transaction)))
 				.andDo(print())
 				.andExpect(status().isNotFound());
+
 	}
 
 	@Test
-	public void test_topUpMoneyInWallet_Status_FOUND() throws Exception {
+	void test_topUpMoneyInWallet_Status_FOUND() throws Exception {
 		Transaction transaction = new Transaction();
 		transaction.setAmount(new BigDecimal(30));
 		transaction.setWalletId(WALLET_ID);
